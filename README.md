@@ -21,6 +21,3 @@ ASP.Net Core based CRUD application to keep track of coding hours. Developed usi
 * SQLite database connection
     - The program uses a SQLite db connection to store and read information.
     - If no database exists, or the correct table does not exist they will be created.
-
-# In Other News
-* [Buy Me A Coffee](https://www.buymeacoffee.com/kimfom01)
