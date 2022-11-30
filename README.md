@@ -13,9 +13,12 @@ ASP.Net Core based CRUD application to keep track of coding hours. Developed usi
 - [x] When reading from the database, you can't use an anonymous object, you have to read your table into a List of Coding Sessions.
 
 ## Challenges (not completed yet)
-* Let the users sort their coding records in order ascending or descending
-* Create reports where the users can see their total and average coding session per period.
-* Create the ability to set coding goals and show how far the users are from reaching their goal, along with how many hours a day they would have to code to reach their goal. You can do it via SQL queries or with C#.
+
+- [ ] Let the users sort their coding records in order ascending or descending
+
+- [ ] Create reports where the users can see their total and average coding session per period.
+
+- [ ] Create the ability to set coding goals and show how far the users are from reaching their goal, along with how many hours a day they would have to code to reach their goal. You can do it via SQL queries or with C#.
 
 # Features
 * SQLite database connection
