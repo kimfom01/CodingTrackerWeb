@@ -6280,7 +6280,7 @@
       }
 
       EventHandler.trigger(this._scrollElement, EVENT_ACTIVATE, {
-        relatedTarget: target
+        relatedTarget: targett
       });
     }
 

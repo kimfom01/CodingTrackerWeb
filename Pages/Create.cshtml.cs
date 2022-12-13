@@ -1,14 +1,16 @@
 using CodingTrackerWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.Sqlite;
-using System.Globalization;
+using CodingTrackerWeb.Data;
 
 namespace CodingTrackerWeb.Pages
 {
     public class CreateModel : PageModel
     {
         private readonly IConfiguration _configuration;
+        private readonly IDataAccess _dataAccess;
+        [BindProperty]
+        public CodingHours CodingHours { get; set; }
 
         public CreateModel(IConfiguration configuration)
         {
@@ -20,9 +22,6 @@ namespace CodingTrackerWeb.Pages
             return Page();
         }
 
-        [BindProperty]
-        public CodingHoursModel CodingHours { get; set; }
-
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
@@ -30,33 +29,9 @@ namespace CodingTrackerWeb.Pages
                 return Page();
             }
 
-            InsertRecord();
+            _dataAccess.InsertRecord(CodingHours);
 
             return RedirectToPage("./Index");
-        }
-
-        private void InsertRecord()
-        {
-            using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
-            {
-                using (var command = connection.CreateCommand())
-                {
-                    connection.Open();
-
-                    command.CommandText = @$"INSERT INTO coding_hours(Date, StartTime, EndTime, Duration)
-                                            VALUES('{CodingHours.Date}', '{CodingHours.StartTime}', '{CodingHours.EndTime}', '{CodingHours.GetDuration()}')";
-
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public string GetDuration()
-        {
-            DateTime parsedStartTime = DateTime.ParseExact(CodingHours.StartTime, "HH:mm", null, DateTimeStyles.None);
-            DateTime parsedEndTime = DateTime.ParseExact(CodingHours.EndTime, "HH:mm", null, DateTimeStyles.None);
-
-            return parsedEndTime.Subtract(parsedStartTime).ToString();
         }
     }
 }

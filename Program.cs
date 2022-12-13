@@ -1,3 +1,5 @@
+using CodingTrackerWeb.Data;
+
 namespace CodingTrackerWeb
 {
     public class Program
@@ -8,6 +10,7 @@ namespace CodingTrackerWeb
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddTransient<IDataAccess, DataAccess>();
 
             var app = builder.Build();
 

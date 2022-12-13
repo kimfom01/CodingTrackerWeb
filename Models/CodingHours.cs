@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace CodingTrackerWeb.Models
 {
-    public class CodingHoursModel
+    public class CodingHours
     {
         public int Id { get; set; }
 
