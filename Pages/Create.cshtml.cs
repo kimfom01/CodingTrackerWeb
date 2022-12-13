@@ -12,9 +12,10 @@ namespace CodingTrackerWeb.Pages
         [BindProperty]
         public CodingHours CodingHours { get; set; }
 
-        public CreateModel(IConfiguration configuration)
+        public CreateModel(IConfiguration configuration, IDataAccess dataAccess)
         {
             _configuration = configuration;
+            _dataAccess = dataAccess;
         }
 
         public IActionResult OnGet()
