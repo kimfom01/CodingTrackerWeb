@@ -9,5 +9,4 @@ public interface IDataAccess
     public List<CodingHours> GetAllRecords();
     public void UpdateRecord(int id, CodingHours codingHours);
     public CodingHours GetById(int id);
-    
 }

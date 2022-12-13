@@ -12,7 +12,7 @@ public class DataAccess : IDataAccess
     {
         _configuration = configuration;
     }
-    
+
     public void InsertRecord(CodingHours codingHours)
     {
         using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
@@ -28,7 +28,7 @@ public class DataAccess : IDataAccess
             }
         }
     }
-    
+
     public List<CodingHours> GetAllRecords()
     {
         var codingHoursModels = new List<CodingHours>();
@@ -45,13 +45,14 @@ public class DataAccess : IDataAccess
 
                 while (reader.Read())
                 {
-                    var tempModel = new CodingHours();
-
-                    tempModel.Id = reader.GetInt32(0);
-                    tempModel.Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat);
-                    tempModel.StartTime = (string)reader["StartTime"];
-                    tempModel.EndTime = (string)reader["EndTime"];
-                    tempModel.Duration = (string)reader["Duration"];
+                    var tempModel = new CodingHours
+                    {
+                        Id = reader.GetInt32(0),
+                        Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),
+                        StartTime = (string)reader["StartTime"],
+                        EndTime = (string)reader["EndTime"],
+                        Duration = (string)reader["Duration"]
+                    };
 
                     codingHoursModels.Add(tempModel);
                 }
@@ -60,7 +61,7 @@ public class DataAccess : IDataAccess
 
         return codingHoursModels;
     }
-    
+
     public void UpdateRecord(int id, CodingHours codingHours)
     {
         using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
@@ -70,14 +71,14 @@ public class DataAccess : IDataAccess
                 connection.Open();
 
                 command.CommandText = @$"UPDATE coding_hours
-                                            SET Date = '{codingHours.Date}', StartTime = '{codingHours.StartTime}', EndTime = '{codingHours.EndTime}', Duration = '{codingHours.GetDuration()}'
+                                            SET Date = '{codingHours.Date}', StartTime = '{codingHours.StartTime}', EndTime = '{codingHours.EndTime}', Duration = '{GetDuration(codingHours.StartTime, codingHours.EndTime)}'
                                             WHERE Id = {id}";
-                    
+
                 command.ExecuteNonQuery();
             }
         }
     }
-    
+
     public void DeleteRecord(int id)
     {
         using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
@@ -93,7 +94,7 @@ public class DataAccess : IDataAccess
             }
         }
     }
-    
+
     public CodingHours GetById(int id)
     {
         using var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString"));
@@ -130,5 +131,4 @@ public class DataAccess : IDataAccess
 
         return parsedEndTime.Subtract(parsedStartTime).ToString();
     }
-
 }

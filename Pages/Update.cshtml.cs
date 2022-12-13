@@ -1,8 +1,6 @@
 using CodingTrackerWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.Sqlite;
-using System.Globalization;
 using CodingTrackerWeb.Data;
 
 namespace CodingTrackerWeb.Pages
@@ -27,8 +25,7 @@ namespace CodingTrackerWeb.Pages
 
             return Page();
         }
-
-
+        
         public IActionResult OnPost(int id)
         {
             if (!ModelState.IsValid)
