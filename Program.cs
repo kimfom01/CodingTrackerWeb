@@ -25,6 +25,9 @@ namespace CodingTrackerWeb
             // Apply pending migrations on database
             var scope = app.Services.CreateScope();
             await DataHelper.ManageDataAsync(scope.ServiceProvider);
+            
+            // posgress date error fix?
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
