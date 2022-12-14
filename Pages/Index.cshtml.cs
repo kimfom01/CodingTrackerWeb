@@ -8,7 +8,7 @@ namespace CodingTrackerWeb.Pages
     {
         private readonly IConfiguration _configuration;
         private readonly IDataAccess _dataAccess;
-        public List<CodingHours> Records { get; set; }
+        public List<CodingHour> Records { get; set; }
 
         public IndexModel(IConfiguration configuration, IDataAccess dataAccess)
         {

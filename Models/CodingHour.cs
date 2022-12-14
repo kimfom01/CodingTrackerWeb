@@ -2,7 +2,7 @@
 
 namespace CodingTrackerWeb.Models
 {
-    public class CodingHours
+    public class CodingHour
     {
         public int Id { get; set; }
 

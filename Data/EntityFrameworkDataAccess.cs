@@ -13,9 +13,9 @@ public class EntityFrameworkDataAccess : IDataAccess
         _db = db;
     }
 
-    public void InsertRecord(CodingHours codingHours)
+    public void InsertRecord(CodingHour codingHour)
     {
-        _db.Add(codingHours);
+        _db.Add(codingHour);
         _db.SaveChanges();
     }
 
@@ -26,20 +26,20 @@ public class EntityFrameworkDataAccess : IDataAccess
         _db.SaveChanges();
     }
 
-    public List<CodingHours> GetAllRecords()
+    public List<CodingHour> GetAllRecords()
     {
         return _db.CodingHours.ToList();
     }
 
-    public void UpdateRecord(int id, CodingHours codingHours)
+    public void UpdateRecord(int id, CodingHour codingHour)
     {
         var record = GetById(id);
-        record.StartTime = codingHours.StartTime;
-        record.EndTime = codingHours.EndTime;
-        record.Duration = GetDuration(codingHours.StartTime, codingHours.EndTime);
+        record.StartTime = codingHour.StartTime;
+        record.EndTime = codingHour.EndTime;
+        record.Duration = GetDuration(codingHour.StartTime, codingHour.EndTime);
     }
 
-    public CodingHours GetById(int id)
+    public CodingHour GetById(int id)
     {
         return _db.CodingHours.First(x => x.Id == id);
     }

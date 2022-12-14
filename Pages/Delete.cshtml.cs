@@ -11,7 +11,7 @@ namespace CodingTrackerWeb.Pages
         private readonly IDataAccess _dataAccess;
 
         [BindProperty]
-        public CodingHours CodingHours { get; set; }
+        public CodingHour CodingHour { get; set; }
 
         public DeleteModel(IConfiguration configuration, IDataAccess dataAccess)
         {
@@ -21,7 +21,7 @@ namespace CodingTrackerWeb.Pages
 
         public IActionResult OnGet(int id)
         {
-            CodingHours = _dataAccess.GetById(id);
+            CodingHour = _dataAccess.GetById(id);
 
             return Page();
         }
