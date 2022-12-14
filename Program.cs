@@ -21,7 +21,8 @@ namespace CodingTrackerWeb
             });
 
             var app = builder.Build();
-
+            
+            // Apply pending migrations on database
             var scope = app.Services.CreateScope();
             await DataHelper.ManageDataAsync(scope.ServiceProvider);
 
