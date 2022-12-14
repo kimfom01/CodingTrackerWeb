@@ -26,7 +26,7 @@ namespace CodingTrackerWeb
             var scope = app.Services.CreateScope();
             await DataHelper.ManageDataAsync(scope.ServiceProvider);
             
-            // posgress date error fix?
+            // postgres date error fix
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             // Configure the HTTP request pipeline.

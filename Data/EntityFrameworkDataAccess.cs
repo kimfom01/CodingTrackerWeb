@@ -37,6 +37,7 @@ public class EntityFrameworkDataAccess : IDataAccess
         record.StartTime = codingHour.StartTime;
         record.EndTime = codingHour.EndTime;
         record.Duration = GetDuration(codingHour.StartTime, codingHour.EndTime);
+        _db.SaveChanges();
     }
 
     public CodingHour GetById(int id)
