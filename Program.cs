@@ -16,7 +16,8 @@ namespace CodingTrackerWeb
             builder.Services.AddTransient<IDataAccess, EntityFrameworkDataAccess>();
             builder.Services.AddDbContext<CodingHoursContext>(options =>
             {
-                options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"));
+                // options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"));
+                options.UseNpgsql(ExternalDbConnectionHelper.GetConnectionString());
             });
 
             var app = builder.Build();

@@ -4,9 +4,16 @@ namespace CodingTrackerWeb.Helper;
 
 public class ExternalDbConnectionHelper
 {
-    public static string GetConnectionString(IConfiguration configuration)
+    private static IConfiguration _configuration;
+
+    public ExternalDbConnectionHelper(IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        _configuration = configuration;
+    }
+    
+    public static string GetConnectionString()
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
         var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
         return string.IsNullOrEmpty(databaseUrl) ? connectionString : BuildConnectionString(databaseUrl);
     }
