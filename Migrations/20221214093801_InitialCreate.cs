@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CodingTrackerWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class ModifyDateTimeStamp : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +17,7 @@ namespace CodingTrackerWeb.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Date = table.Column<string>(type: "text", nullable: false),
                     StartTime = table.Column<string>(type: "text", nullable: false),
                     EndTime = table.Column<string>(type: "text", nullable: false),
                     Duration = table.Column<string>(type: "text", nullable: false)
