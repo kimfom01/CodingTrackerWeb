@@ -21,6 +21,6 @@ ASP.Net Core based CRUD application to keep track of coding hours. Developed usi
 - [ ] Create the ability to set coding goals and show how far the users are from reaching their goal, along with how many hours a day they would have to code to reach their goal. You can do it via SQL queries or with C#.
 
 # Features
-* SQLite database connection
-    - The program uses a SQLite db connection to store and read information.
-    - If no database exists, or the correct table does not exist they will be created.
+* Posgres database connection
+    - The program uses a Posgres database to store and read information.
+    - The program uses Entity Framework Code-First approach to managing the database
