@@ -48,7 +48,7 @@ public class AdoDataAccess : IDataAccess
                     var tempModel = new CodingHour
                     {
                         Id = reader.GetInt32(0),
-                        Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),
+                        Date = (string)reader["Date"],
                         StartTime = (string)reader["StartTime"],
                         EndTime = (string)reader["EndTime"],
                         Duration = (string)reader["Duration"]
@@ -113,7 +113,7 @@ public class AdoDataAccess : IDataAccess
                 while (reader.Read())
                 {
                     codingHours.Id = reader.GetInt32(0);
-                    codingHours.Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat);
+                    codingHours.Date = (string)reader["Date"];
                     codingHours.StartTime = (string)reader["StartTime"];
                     codingHours.EndTime = (string)reader["EndTime"];
                     codingHours.Duration = (string)reader["Duration"];
