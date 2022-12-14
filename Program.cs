@@ -1,18 +1,28 @@
+using CodingTrackerWeb.Context;
 using CodingTrackerWeb.Data;
+using CodingTrackerWeb.Helper;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodingTrackerWeb
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddTransient<IDataAccess, AdoDataAccess>();
+            builder.Services.AddTransient<IDataAccess, EntityFrameworkDataAccess>();
+            builder.Services.AddDbContext<CodingHoursContext>(options =>
+            {
+                options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"));
+            });
 
             var app = builder.Build();
+
+            var scope = app.Services.CreateScope();
+            await DataHelper.ManageDataAsync(scope.ServiceProvider);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
