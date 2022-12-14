@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CodingTrackerWeb.Migrations
 {
     [DbContext(typeof(CodingHoursContext))]
-    [Migration("20221214074039_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221214084047_ModifyDateTimeStamp")]
+    partial class ModifyDateTimeStamp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,7 @@ namespace CodingTrackerWeb.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Duration")
                         .IsRequired()
