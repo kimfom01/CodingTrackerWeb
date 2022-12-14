@@ -15,6 +15,7 @@ public class EntityFrameworkDataAccess : IDataAccess
 
     public void InsertRecord(CodingHour codingHour)
     {
+        codingHour.Duration = GetDuration(codingHour.StartTime, codingHour.EndTime);
         _db.Add(codingHour);
         _db.SaveChanges();
     }
