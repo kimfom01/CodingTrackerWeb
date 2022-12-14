@@ -4,11 +4,11 @@ using Microsoft.Data.Sqlite;
 
 namespace CodingTrackerWeb.Data;
 
-public class DataAccess : IDataAccess
+public class AdoDataAccess : IDataAccess
 {
     private readonly IConfiguration _configuration;
 
-    public DataAccess(IConfiguration configuration)
+    public AdoDataAccess(IConfiguration configuration)
     {
         _configuration = configuration;
     }
