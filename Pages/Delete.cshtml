@@ -9,33 +9,33 @@
 <div>
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CodingHours.Date)
+            @Html.DisplayNameFor(model => model.CodingHour.Date)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CodingHours.Date)
+            @Html.DisplayFor(model => model.CodingHour.Date)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CodingHours.StartTime)
+            @Html.DisplayNameFor(model => model.CodingHour.StartTime)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CodingHours.StartTime)
+            @Html.DisplayFor(model => model.CodingHour.StartTime)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CodingHours.EndTime)
+            @Html.DisplayNameFor(model => model.CodingHour.EndTime)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CodingHours.EndTime)
+            @Html.DisplayFor(model => model.CodingHour.EndTime)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CodingHours.Duration)
+            @Html.DisplayNameFor(model => model.CodingHour.Duration)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CodingHours.Duration)
+            @Html.DisplayFor(model => model.CodingHour.Duration)
         </dd>
     </dl>
 
     <form method="post">
-        <input type="hidden" asp-for="CodingHours.Id" />
+        <input type="hidden" asp-for="CodingHour.Id" />
         <input type="submit" value="Delete" class="btn btn-danger" />
         <a asp-page="./Index">Back to Home</a>
     </form>

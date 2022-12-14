@@ -1,18 +1,33 @@
+using CodingTrackerWeb.Context;
 using CodingTrackerWeb.Data;
+using CodingTrackerWeb.Helper;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodingTrackerWeb
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddTransient<IDataAccess, AdoDataAccess>();
+            builder.Services.AddTransient<IDataAccess, EntityFrameworkDataAccess>();
+            builder.Services.AddDbContext<CodingHoursContext>(options =>
+            {
+                // options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"));
+                options.UseNpgsql(ExternalDbConnectionHelper.GetConnectionString());
+            });
 
             var app = builder.Build();
+            
+            // Apply pending migrations on database
+            var scope = app.Services.CreateScope();
+            await DataHelper.ManageDataAsync(scope.ServiceProvider);
+            
+            // posgress date error fix?
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

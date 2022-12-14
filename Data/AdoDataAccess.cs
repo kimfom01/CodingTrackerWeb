@@ -13,7 +13,7 @@ public class AdoDataAccess : IDataAccess
         _configuration = configuration;
     }
 
-    public void InsertRecord(CodingHours codingHours)
+    public void InsertRecord(CodingHour codingHour)
     {
         using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
         {
@@ -22,16 +22,16 @@ public class AdoDataAccess : IDataAccess
                 connection.Open();
 
                 command.CommandText = @$"INSERT INTO coding_hours(Date, StartTime, EndTime, Duration)
-                                            VALUES('{codingHours.Date}', '{codingHours.StartTime}', '{codingHours.EndTime}', '{GetDuration(codingHours.StartTime, codingHours.EndTime)}')";
+                                            VALUES('{codingHour.Date}', '{codingHour.StartTime}', '{codingHour.EndTime}', '{GetDuration(codingHour.StartTime, codingHour.EndTime)}')";
 
                 command.ExecuteNonQuery();
             }
         }
     }
 
-    public List<CodingHours> GetAllRecords()
+    public List<CodingHour> GetAllRecords()
     {
-        var codingHoursModels = new List<CodingHours>();
+        var codingHoursModels = new List<CodingHour>();
 
         using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
         {
@@ -45,10 +45,10 @@ public class AdoDataAccess : IDataAccess
 
                 while (reader.Read())
                 {
-                    var tempModel = new CodingHours
+                    var tempModel = new CodingHour
                     {
                         Id = reader.GetInt32(0),
-                        Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat),
+                        Date = (string)reader["Date"],
                         StartTime = (string)reader["StartTime"],
                         EndTime = (string)reader["EndTime"],
                         Duration = (string)reader["Duration"]
@@ -62,7 +62,7 @@ public class AdoDataAccess : IDataAccess
         return codingHoursModels;
     }
 
-    public void UpdateRecord(int id, CodingHours codingHours)
+    public void UpdateRecord(int id, CodingHour codingHour)
     {
         using (var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString")))
         {
@@ -71,7 +71,7 @@ public class AdoDataAccess : IDataAccess
                 connection.Open();
 
                 command.CommandText = @$"UPDATE coding_hours
-                                            SET Date = '{codingHours.Date}', StartTime = '{codingHours.StartTime}', EndTime = '{codingHours.EndTime}', Duration = '{GetDuration(codingHours.StartTime, codingHours.EndTime)}'
+                                            SET Date = '{codingHour.Date}', StartTime = '{codingHour.StartTime}', EndTime = '{codingHour.EndTime}', Duration = '{GetDuration(codingHour.StartTime, codingHour.EndTime)}'
                                             WHERE Id = {id}";
 
                 command.ExecuteNonQuery();
@@ -95,13 +95,13 @@ public class AdoDataAccess : IDataAccess
         }
     }
 
-    public CodingHours GetById(int id)
+    public CodingHour GetById(int id)
     {
         using var connection = new SqliteConnection(_configuration.GetConnectionString("ConnectionString"));
         {
             using (var command = connection.CreateCommand())
             {
-                var codingHours = new CodingHours();
+                var codingHours = new CodingHour();
 
                 connection.Open();
 
@@ -113,7 +113,7 @@ public class AdoDataAccess : IDataAccess
                 while (reader.Read())
                 {
                     codingHours.Id = reader.GetInt32(0);
-                    codingHours.Date = DateTime.Parse(reader.GetString(1), CultureInfo.CurrentUICulture.DateTimeFormat);
+                    codingHours.Date = (string)reader["Date"];
                     codingHours.StartTime = (string)reader["StartTime"];
                     codingHours.EndTime = (string)reader["EndTime"];
                     codingHours.Duration = (string)reader["Duration"];

@@ -10,7 +10,7 @@ namespace CodingTrackerWeb.Pages
         private readonly IConfiguration _configuration;
         private readonly IDataAccess _dataAccess;
         [BindProperty]
-        public CodingHours CodingHours { get; set; }
+        public CodingHour CodingHour { get; set; }
 
         public CreateModel(IConfiguration configuration, IDataAccess dataAccess)
         {
@@ -30,7 +30,7 @@ namespace CodingTrackerWeb.Pages
                 return Page();
             }
 
-            _dataAccess.InsertRecord(CodingHours);
+            _dataAccess.InsertRecord(CodingHour);
 
             return RedirectToPage("./Index");
         }

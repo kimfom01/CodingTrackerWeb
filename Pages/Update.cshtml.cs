@@ -11,7 +11,7 @@ namespace CodingTrackerWeb.Pages
         private readonly IDataAccess _dataAccess;
 
         [BindProperty]
-        public CodingHours CodingHours { get; set; }
+        public CodingHour CodingHour { get; set; }
 
         public UpdateModel(IConfiguration configuration, IDataAccess dataAccess)
         {
@@ -21,7 +21,7 @@ namespace CodingTrackerWeb.Pages
 
         public IActionResult OnGet(int id)
         {
-            CodingHours = _dataAccess.GetById(id);
+            CodingHour = _dataAccess.GetById(id);
 
             return Page();
         }
@@ -33,7 +33,7 @@ namespace CodingTrackerWeb.Pages
                 return Page();
             }
 
-            _dataAccess.UpdateRecord(id, CodingHours);
+            _dataAccess.UpdateRecord(id, CodingHour);
 
             return RedirectToPage("./Index");
         }
