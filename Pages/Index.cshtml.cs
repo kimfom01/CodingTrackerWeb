@@ -16,7 +16,7 @@ namespace CodingTrackerWeb.Pages
 
         public void OnGet()
         {
-            Records = _dataAccess.GetAllRecords().OrderBy(x => x.Date);
+            Records = _dataAccess.GetAllRecords().OrderBy(x => x.Date).ToList();
         }
     }
 }
