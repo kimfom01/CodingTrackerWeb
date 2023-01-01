@@ -6,13 +6,11 @@ namespace CodingTrackerWeb.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IConfiguration _configuration;
         private readonly IDataAccess _dataAccess;
         public List<CodingHour> Records { get; set; }
 
-        public IndexModel(IConfiguration configuration, IDataAccess dataAccess)
+        public IndexModel(IDataAccess dataAccess)
         {
-            _configuration = configuration;
             _dataAccess = dataAccess;
         }
 

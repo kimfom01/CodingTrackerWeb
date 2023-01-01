@@ -7,15 +7,13 @@ namespace CodingTrackerWeb.Pages
 {
     public class UpdateModel : PageModel
     {
-        private readonly IConfiguration _configuration;
         private readonly IDataAccess _dataAccess;
 
         [BindProperty]
         public CodingHour CodingHour { get; set; }
 
-        public UpdateModel(IConfiguration configuration, IDataAccess dataAccess)
+        public UpdateModel(IDataAccess dataAccess)
         {
-            _configuration = configuration;
             _dataAccess = dataAccess;
         }
 

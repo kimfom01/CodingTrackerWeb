@@ -7,15 +7,13 @@ namespace CodingTrackerWeb.Pages
 {
     public class DeleteModel : PageModel
     {
-        private readonly IConfiguration _configuration;
         private readonly IDataAccess _dataAccess;
 
         [BindProperty]
         public CodingHour CodingHour { get; set; }
 
-        public DeleteModel(IConfiguration configuration, IDataAccess dataAccess)
+        public DeleteModel(IDataAccess dataAccess)
         {
-            _configuration = configuration;
             _dataAccess = dataAccess;
         }
 

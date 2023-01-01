@@ -7,14 +7,12 @@ namespace CodingTrackerWeb.Pages
 {
     public class CreateModel : PageModel
     {
-        private readonly IConfiguration _configuration;
         private readonly IDataAccess _dataAccess;
         [BindProperty]
         public CodingHour CodingHour { get; set; }
 
-        public CreateModel(IConfiguration configuration, IDataAccess dataAccess)
+        public CreateModel(IDataAccess dataAccess)
         {
-            _configuration = configuration;
             _dataAccess = dataAccess;
         }
 
