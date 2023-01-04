@@ -29,10 +29,6 @@ namespace CodingTrackerWeb
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddTransient<IDataAccess, EntityFrameworkDataAccess>();
-            builder.Services.AddDbContext<CodingHoursContext>(options =>
-            {
-                options.UseNpgsql(builder.Configuration.GetConnectionString("LocalPostgreSQL"));
-            });
 
             var app = builder.Build();
 
