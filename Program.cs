@@ -11,21 +11,35 @@ namespace CodingTrackerWeb
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddDbContext<CodingHoursContext>(options =>
+                {
+                    options.UseNpgsql(builder.Configuration.GetConnectionString("LocalPostgreSQL"));
+                });
+            }
+            else
+            {
+                builder.Services.AddDbContext<CodingHoursContext>(options =>
+                {
+                    options.UseNpgsql(ExternalDbConnectionHelper.GetConnectionString());
+                });
+            }
+
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddTransient<IDataAccess, EntityFrameworkDataAccess>();
             builder.Services.AddDbContext<CodingHoursContext>(options =>
             {
-                // options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"));
-                options.UseNpgsql(ExternalDbConnectionHelper.GetConnectionString());
+                options.UseNpgsql(builder.Configuration.GetConnectionString("LocalPostgreSQL"));
             });
 
             var app = builder.Build();
-            
+
             // Apply pending migrations on database
             var scope = app.Services.CreateScope();
             await DataHelper.ManageDataAsync(scope.ServiceProvider);
-            
+
             // postgres date error fix
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
