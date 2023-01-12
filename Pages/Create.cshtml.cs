@@ -1,19 +1,19 @@
 using CodingTrackerWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CodingTrackerWeb.Data;
+using CodingTrackerWeb.Repositories;
 
 namespace CodingTrackerWeb.Pages
 {
     public class CreateModel : PageModel
     {
-        private readonly IDataAccess _dataAccess;
         [BindProperty]
         public CodingHour CodingHour { get; set; }
+        private readonly ICodingHourRepository _repository;
 
-        public CreateModel(IDataAccess dataAccess)
+        public CreateModel(ICodingHourRepository repository)
         {
-            _dataAccess = dataAccess;
+            _repository = repository;
         }
 
         public IActionResult OnGet()
@@ -28,7 +28,7 @@ namespace CodingTrackerWeb.Pages
                 return Page();
             }
 
-            _dataAccess.InsertRecord(CodingHour);
+            _repository.InsertRecord(CodingHour);
 
             return RedirectToPage("./Index");
         }

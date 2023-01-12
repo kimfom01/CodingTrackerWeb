@@ -1,23 +1,24 @@
 ﻿using CodingTrackerWeb.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CodingTrackerWeb.Data;
+using CodingTrackerWeb.Repositories;
 
 namespace CodingTrackerWeb.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IDataAccess _dataAccess;
+        private readonly ICodingHourRepository _repository;
+
         public List<CodingHour> Records { get; set; }
 
-        public IndexModel(IDataAccess dataAccess)
+        public IndexModel(ICodingHourRepository repository)
         {
-            _dataAccess = dataAccess;
+            _repository = repository;
         }
 
         public void OnGet()
         {
-            var records = _dataAccess.GetAllRecords();
-            
+            var records = _repository.GetAllRecords();
+
             Records = records.OrderBy(x => x.Date).ToList();
         }
     }

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CodingTrackerWeb.Migrations
 {
-    [DbContext(typeof(CodingHoursContext))]
-    [Migration("20221214093801_InitialCreate")]
+    [DbContext(typeof(DatabaseContext))]
+    [Migration("20230112122642_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

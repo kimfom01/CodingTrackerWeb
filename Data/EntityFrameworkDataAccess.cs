@@ -6,9 +6,9 @@ namespace CodingTrackerWeb.Data;
 
 public class EntityFrameworkDataAccess : IDataAccess
 {
-    private readonly CodingHoursContext _db;
+    private readonly DatabaseContext _db;
 
-    public EntityFrameworkDataAccess(CodingHoursContext db)
+    public EntityFrameworkDataAccess(DatabaseContext db)
     {
         _db = db;
     }
@@ -45,7 +45,7 @@ public class EntityFrameworkDataAccess : IDataAccess
     {
         return _db.CodingHours.First(x => x.Id == id);
     }
-    
+
     private string GetDuration(string startTime, string endTime)
     {
         DateTime parsedStartTime = DateTime.ParseExact(startTime, "HH:mm", null, DateTimeStyles.None);
