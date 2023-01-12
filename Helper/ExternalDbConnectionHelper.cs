@@ -10,7 +10,7 @@ public class ExternalDbConnectionHelper
     {
         _configuration = configuration;
     }
-    
+
     public static string GetConnectionString()
     {
         var connectionString = _configuration.GetConnectionString("DefaultConnection");
@@ -18,7 +18,7 @@ public class ExternalDbConnectionHelper
         return string.IsNullOrEmpty(databaseUrl) ? connectionString : BuildConnectionString(databaseUrl);
     }
 
-    //build the connection string from the environment. i.e. Heroku
+    //build the connection string from the environment.
     private static string BuildConnectionString(string databaseUrl)
     {
         var databaseUri = new Uri(databaseUrl);
@@ -34,5 +34,5 @@ public class ExternalDbConnectionHelper
             TrustServerCertificate = true
         };
         return builder.ToString();
-    }       
+    }
 }
