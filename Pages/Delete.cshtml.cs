@@ -1,25 +1,25 @@
 using CodingTrackerWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CodingTrackerWeb.Data;
+using CodingTrackerWeb.Repositories;
 
 namespace CodingTrackerWeb.Pages
 {
     public class DeleteModel : PageModel
     {
-        private readonly IDataAccess _dataAccess;
+        private readonly ICodingHourRepository _repository;
 
         [BindProperty]
         public CodingHour CodingHour { get; set; }
 
-        public DeleteModel(IDataAccess dataAccess)
+        public DeleteModel(ICodingHourRepository repository)
         {
-            _dataAccess = dataAccess;
+            _repository = repository;
         }
 
         public IActionResult OnGet(int id)
         {
-            CodingHour = _dataAccess.GetById(id);
+            CodingHour = _repository.GetById(id);
 
             return Page();
         }
@@ -31,7 +31,7 @@ namespace CodingTrackerWeb.Pages
                 return Page();
             }
 
-            _dataAccess.DeleteRecord(id);
+            _repository.DeleteRecord(id);
 
             return RedirectToPage("./Index");
         }
