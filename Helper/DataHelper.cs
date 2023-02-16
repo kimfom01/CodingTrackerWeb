@@ -11,6 +11,11 @@ public class DataHelper
         var dbContextSvc = svcProvider.GetRequiredService<DatabaseContext>();
 
         //Migration: This is the programmatic equivalent to Update-Database
-        await dbContextSvc.Database.MigrateAsync();
+        var pendingMigrations = await dbContextSvc.Database.GetPendingMigrationsAsync();
+
+        if (pendingMigrations.Any())
+        {
+            await dbContextSvc.Database.MigrateAsync();
+        }
     }
 }
