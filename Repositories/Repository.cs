@@ -1,14 +1,14 @@
-using CodingTrackerWeb.Context;
+using CodingTrackerWeb.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodingTrackerWeb.Repositories;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private readonly DatabaseContext _dbContext;
+    private readonly CodingTrackerWebContext _dbContext;
     private readonly DbSet<TEntity> _dbSet;
 
-    public Repository(DatabaseContext dbContext)
+    public Repository(CodingTrackerWebContext dbContext)
     {
         _dbContext = dbContext;
         _dbSet = dbContext.Set<TEntity>();

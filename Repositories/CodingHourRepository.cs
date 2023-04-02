@@ -1,14 +1,14 @@
 using System.Globalization;
-using CodingTrackerWeb.Context;
+using CodingTrackerWeb.Data;
 using CodingTrackerWeb.Models;
 
 namespace CodingTrackerWeb.Repositories;
 
 public class CodingHourRepository : Repository<CodingHour>, ICodingHourRepository
 {
-    private readonly DatabaseContext _dbContext;
+    private readonly CodingTrackerWebContext _dbContext;
 
-    public CodingHourRepository(DatabaseContext dbContext) : base(dbContext)
+    public CodingHourRepository(CodingTrackerWebContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }

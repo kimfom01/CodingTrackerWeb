@@ -1,24 +1,28 @@
-using CodingTrackerWeb.Context;
 using CodingTrackerWeb.Helper;
 using CodingTrackerWeb.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using CodingTrackerWeb.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddDbContext<DatabaseContext>(options =>
+    builder.Services.AddDbContext<CodingTrackerWebContext>(options =>
     {
         options.UseNpgsql(builder.Configuration.GetConnectionString("LocalPostgreSQL"));
     });
 }
 else
 {
-    builder.Services.AddDbContext<DatabaseContext>(options =>
+    builder.Services.AddDbContext<CodingTrackerWebContext>(options =>
     {
         options.UseNpgsql(ExternalDbConnectionHelper.GetConnectionString());
     });
 }
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<CodingTrackerWebContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -44,5 +48,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapRazorPages();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

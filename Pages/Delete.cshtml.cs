@@ -2,38 +2,39 @@ using CodingTrackerWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CodingTrackerWeb.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
-namespace CodingTrackerWeb.Pages
+namespace CodingTrackerWeb.Pages;
+
+[Authorize]
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ICodingHourRepository _repository;
+
+    [BindProperty]
+    public CodingHour CodingHour { get; set; }
+
+    public DeleteModel(ICodingHourRepository repository)
     {
-        private readonly ICodingHourRepository _repository;
+        _repository = repository;
+    }
 
-        [BindProperty]
-        public CodingHour CodingHour { get; set; }
+    public IActionResult OnGet(int id)
+    {
+        CodingHour = _repository.GetById(id);
 
-        public DeleteModel(ICodingHourRepository repository)
+        return Page();
+    }
+
+    public IActionResult OnPost(int id)
+    {
+        if (!ModelState.IsValid)
         {
-            _repository = repository;
-        }
-
-        public IActionResult OnGet(int id)
-        {
-            CodingHour = _repository.GetById(id);
-
             return Page();
         }
 
-        public IActionResult OnPost(int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+        _repository.DeleteRecord(id);
 
-            _repository.DeleteRecord(id);
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }
