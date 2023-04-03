@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
 
 namespace CodingTrackerWeb.Models;
 
@@ -19,4 +21,7 @@ public class CodingHour
 
     [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
     public string Duration { get; internal set; } = string.Empty;
+
+    public ApplicationUser? ApplicationUser { get; set; }
+    public required string ApplicationUserId { get; set; }
 }

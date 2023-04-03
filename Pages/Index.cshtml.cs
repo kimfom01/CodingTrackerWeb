@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CodingTrackerWeb.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CodingTrackerWeb.Pages;
 
@@ -19,7 +20,9 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-        var records = _repository.GetAllRecords();
+        var claimsIdentity = User.FindFirst(ClaimTypes.NameIdentifier);
+
+        var records = _repository.GetUserRecords(codingHour => codingHour.ApplicationUserId == claimsIdentity.Value);
 
         Records = records.OrderBy(x => x.Date).ToList();
     }

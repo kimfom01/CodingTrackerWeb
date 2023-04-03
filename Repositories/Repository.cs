@@ -1,5 +1,6 @@
 using CodingTrackerWeb.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CodingTrackerWeb.Repositories;
 
@@ -20,9 +21,9 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         _dbSet.Remove(entity);
     }
 
-    public virtual List<TEntity> GetAllRecords()
+    public virtual List<TEntity> GetUserRecords(Expression<Func<TEntity, bool>> predicate)
     {
-        return _dbSet.AsNoTracking<TEntity>().ToList();
+        return _dbSet.Where(predicate).AsNoTracking().ToList();
     }
 
     public virtual TEntity GetById(int id)
