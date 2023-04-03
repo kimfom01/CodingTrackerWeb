@@ -10,9 +10,11 @@ public class CodingHour
     public string Date { get; set; } = string.Empty;
 
     [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+    [Display(Name = "Start Time")]
     public string StartTime { get; set; } = string.Empty;
 
     [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+    [Display(Name ="End Time")]
     public string EndTime { get; set; } = string.Empty;
 
     [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
