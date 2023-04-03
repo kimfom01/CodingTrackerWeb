@@ -11,7 +11,7 @@ public class ExternalDbConnectionHelper
         _configuration = configuration;
     }
 
-    public static string GetConnectionString()
+    public static string? GetConnectionString()
     {
         var connectionString = _configuration.GetConnectionString("DefaultConnection");
         var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");

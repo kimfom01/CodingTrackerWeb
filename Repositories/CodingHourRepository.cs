@@ -13,7 +13,7 @@ public class CodingHourRepository : Repository<CodingHour>, ICodingHourRepositor
         _dbContext = dbContext;
     }
 
-    public override void InsertRecord(CodingHour codingHour)
+    public override void InsertRecord(CodingHour? codingHour)
     {
         codingHour.Duration = GetDuration(codingHour.StartTime, codingHour.EndTime);
         base.InsertRecord(codingHour);

@@ -12,7 +12,7 @@ public class UpdateModel : PageModel
     private readonly ICodingHourRepository _repository;
 
     [BindProperty]
-    public CodingHour CodingHour { get; set; }
+    public CodingHour? CodingHour { get; set; }
 
     public UpdateModel(ICodingHourRepository repository)
     {

@@ -12,7 +12,7 @@ public class DeleteModel : PageModel
     private readonly ICodingHourRepository _repository;
 
     [BindProperty]
-    public CodingHour CodingHour { get; set; }
+    public CodingHour? CodingHour { get; set; }
 
     public DeleteModel(ICodingHourRepository repository)
     {

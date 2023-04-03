@@ -11,7 +11,7 @@ namespace CodingTrackerWeb.Pages;
 public class CreateModel : PageModel
 {
     [BindProperty]
-    public CodingHour CodingHour { get; set; }
+    public CodingHour? CodingHour { get; set; }
 
     private readonly ICodingHourRepository _repository;
 

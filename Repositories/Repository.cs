@@ -17,21 +17,21 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
 
     public virtual void DeleteRecord(int id)
     {
-        TEntity entity = GetById(id);
+        TEntity? entity = GetById(id);
         _dbSet.Remove(entity);
     }
 
-    public virtual List<TEntity> GetUserRecords(Expression<Func<TEntity, bool>> predicate)
+    public virtual List<TEntity?> GetUserRecords(Expression<Func<TEntity?, bool>> predicate)
     {
         return _dbSet.Where(predicate).AsNoTracking().ToList();
     }
 
-    public virtual TEntity GetById(int id)
+    public virtual TEntity? GetById(int id)
     {
         return _dbSet.Find(id);
     }
 
-    public virtual void InsertRecord(TEntity entity)
+    public virtual void InsertRecord(TEntity? entity)
     {
         _dbSet.Add(entity);
     }
