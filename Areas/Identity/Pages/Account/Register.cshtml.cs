@@ -5,6 +5,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
+using CodingTrackerWeb.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -77,10 +78,7 @@ public class RegisterModel : PageModel
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -121,7 +119,11 @@ public class RegisterModel : PageModel
         returnUrl ??= Url.Content("~/");
         if (ModelState.IsValid)
         {
-            var user = CreateUser();
+            var user = new ApplicationUser
+            {
+                FirstName = Input.FirstName,
+                LastName = Input.LastName
+            };
 
             await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
