@@ -33,7 +33,10 @@ public class UpdateModel : PageModel
             return Page();
         }
 
-        _repository.UpdateRecord(id, CodingHour);
+        if (CodingHour is not null)
+        {
+            _repository.UpdateRecord(id, CodingHour);
+        }
 
         return RedirectToPage("./Index");
     }

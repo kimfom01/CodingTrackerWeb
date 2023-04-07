@@ -24,10 +24,13 @@ public class CreateModel : PageModel
     {
         var claimsIdentity = User.FindFirst(ClaimTypes.NameIdentifier);
 
-        CodingHour = new()
+        if (claimsIdentity is not null)
         {
-            ApplicationUserId = claimsIdentity.Value
-        };
+            CodingHour = new()
+            {
+                ApplicationUserId = claimsIdentity.Value
+            };
+        }
 
         return Page();
     }
@@ -39,7 +42,10 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        _repository.InsertRecord(CodingHour);
+        if (CodingHour is not null)
+        {
+            _repository.InsertRecord(CodingHour);
+        }
 
         return RedirectToPage("./Index");
     }

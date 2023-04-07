@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using CodingTrackerWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,7 +12,6 @@ public class DeleteModel : PageModel
 {
     private readonly ICodingHourRepository _repository;
 
-    [BindProperty]
     public CodingHour? CodingHour { get; set; }
 
     public DeleteModel(ICodingHourRepository repository)
@@ -21,8 +21,16 @@ public class DeleteModel : PageModel
 
     public IActionResult OnGet(int id)
     {
-        CodingHour = _repository.GetById(id);
+        var claimsIdentity = User.FindFirst(ClaimTypes.NameIdentifier);
 
+        if (claimsIdentity is not null)
+        {
+            CodingHour = _repository.GetById(id) ?? new CodingHour
+            {
+                ApplicationUserId = claimsIdentity.Value
+            };
+        }
+        
         return Page();
     }
 

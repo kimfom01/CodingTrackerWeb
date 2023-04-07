@@ -16,14 +16,19 @@ public class IndexModel : PageModel
     public IndexModel(ICodingHourRepository repository)
     {
         _repository = repository;
+        Records = new List<CodingHour>();
     }
 
     public void OnGet()
     {
         var claimsIdentity = User.FindFirst(ClaimTypes.NameIdentifier);
 
-        var records = _repository.GetUserRecords(codingHour => codingHour.ApplicationUserId == claimsIdentity.Value);
-
-        Records = records.OrderBy(x => x.Date).ToList();
+        if (claimsIdentity is not null)
+        {
+            var records = _repository.GetUserRecords(codingHour => 
+                codingHour.ApplicationUserId == claimsIdentity.Value);
+            
+            Records = records.OrderBy(x => x.Date).ToList();
+        }
     }
 }

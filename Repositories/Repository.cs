@@ -6,43 +6,44 @@ namespace CodingTrackerWeb.Repositories;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private readonly CodingTrackerWebContext _dbContext;
-    protected readonly DbSet<TEntity> DbSet;
+    protected readonly CodingTrackerWebContext DbContext;
+    private readonly DbSet<TEntity> _dbSet;
 
     public Repository(CodingTrackerWebContext dbContext)
     {
-        _dbContext = dbContext;
-        DbSet = dbContext.Set<TEntity>();
+        DbContext = dbContext;
+        _dbSet = dbContext.Set<TEntity>();
     }
 
     public virtual void DeleteRecord(int id)
     {
-        TEntity? entity = GetById(id);
-        DbSet.Remove(entity);
+        var entity = GetById(id);
+        
+        if (entity is not null)
+        {
+            _dbSet.Remove(entity);
+        }
     }
 
-    public virtual List<TEntity?> GetUserRecords(Expression<Func<TEntity?, bool>> predicate)
+    public virtual IEnumerable<TEntity> GetUserRecords(Expression<Func<TEntity, bool>> predicate)
     {
-        return DbSet.Where(predicate).AsNoTracking().ToList();
+        var records = _dbSet.Where(predicate).AsNoTracking();
+
+        return records.ToList();
     }
 
     public virtual TEntity? GetById(int id)
     {
-        return DbSet.Find(id);
+        return _dbSet.Find(id);
     }
 
-    public virtual void InsertRecord(TEntity? entity)
+    public virtual void InsertRecord(TEntity entity)
     {
-        DbSet.Add(entity);
+        _dbSet.Add(entity);
     }
 
     public virtual void UpdateRecord(int id, TEntity entity)
     {
-        _dbContext.Entry(entity).State = EntityState.Modified;
-    }
-
-    public virtual int SaveChanges()
-    {
-        return _dbContext.SaveChanges();
+        DbContext.Entry(entity).State = EntityState.Modified;
     }
 }

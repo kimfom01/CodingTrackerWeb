@@ -1,4 +1,5 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model CodingTrackerWeb.Pages.UpdateModel
 @{
     ViewData["Title"] = "Update";
@@ -9,21 +10,21 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <input type="hidden" asp-for="CodingHour.Id" />
+            <input type="hidden" asp-for="CodingHour!.Id" />
             <div class="form-group">
-                <label asp-for="CodingHour.Date" class="control-label"></label>
-                <input type="date" asp-for="CodingHour.Date" class="form-control" />
-                <span asp-validation-for="CodingHour.Date" class="text-danger"></span>
+                <label asp-for="CodingHour!.Date" class="control-label"></label>
+                <input type="date" asp-for="CodingHour!.Date" class="form-control" />
+                <span asp-validation-for="CodingHour!.Date" class="text-danger"></span>
             </div>
             <div class="form-group my-3">
-                <label asp-for="CodingHour.StartTime" class="control-label"></label>
-                <input type="time" asp-for="CodingHour.StartTime" class="form-control" />
-                <span asp-validation-for="CodingHour.StartTime" class="text-danger"></span>
+                <label asp-for="CodingHour!.StartTime" class="control-label"></label>
+                <input type="time" asp-for="CodingHour!.StartTime" class="form-control" />
+                <span asp-validation-for="CodingHour!.StartTime" class="text-danger"></span>
             </div>
             <div class="form-group my-3">
-                <label asp-for="CodingHour.EndTime" class="control-label"></label>
-                <input type="time" asp-for="CodingHour.EndTime" class="form-control" />
-                <span asp-validation-for="CodingHour.EndTime" class="text-danger"></span>
+                <label asp-for="CodingHour!.EndTime" class="control-label"></label>
+                <input type="time" asp-for="CodingHour!.EndTime" class="form-control" />
+                <span asp-validation-for="CodingHour!.EndTime" class="text-danger"></span>
             </div>
             <div>
                 <input type="submit" value="Update" class="btn btn-success" />

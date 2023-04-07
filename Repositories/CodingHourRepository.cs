@@ -6,18 +6,15 @@ namespace CodingTrackerWeb.Repositories;
 
 public class CodingHourRepository : Repository<CodingHour>, ICodingHourRepository
 {
-    private readonly CodingTrackerWebContext _dbContext;
-
     public CodingHourRepository(CodingTrackerWebContext dbContext) : base(dbContext)
     {
-        _dbContext = dbContext;
     }
 
-    public override void InsertRecord(CodingHour? codingHour)
+    public override void InsertRecord(CodingHour codingHour)
     {
         codingHour.Duration = GetDuration(codingHour.StartTime, codingHour.EndTime);
         base.InsertRecord(codingHour);
-        _dbContext.SaveChanges();
+        DbContext.SaveChanges();
     }
 
     public override void UpdateRecord(int id, CodingHour codingHour)
@@ -26,21 +23,21 @@ public class CodingHourRepository : Repository<CodingHour>, ICodingHourRepositor
         codingHour.EndTime = codingHour.EndTime;
         codingHour.Duration = GetDuration(codingHour.StartTime, codingHour.EndTime);
         base.UpdateRecord(id, codingHour);
-        _dbContext.SaveChanges();
+        DbContext.SaveChanges();
     }
 
     public override void DeleteRecord(int id)
     {
         base.DeleteRecord(id);
-        _dbContext.SaveChanges();
+        DbContext.SaveChanges();
     }
 
     private string GetDuration(string startTime, string endTime)
     {
-        DateTime parsedStartTime = DateTime.ParseExact(startTime, "HH:mm", null, DateTimeStyles.None);
-        DateTime parsedEndTime = DateTime.ParseExact(endTime, "HH:mm", null, DateTimeStyles.None);
+        var parsedStartTime = DateTime.ParseExact(startTime, "HH:mm", null, DateTimeStyles.None);
+        var parsedEndTime = DateTime.ParseExact(endTime, "HH:mm", null, DateTimeStyles.None);
 
-        TimeSpan duration = parsedEndTime.Subtract(parsedStartTime);
+        var duration = parsedEndTime.Subtract(parsedStartTime);
 
         if (duration < TimeSpan.Zero)
         {
