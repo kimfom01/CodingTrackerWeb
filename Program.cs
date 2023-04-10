@@ -10,7 +10,7 @@ if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<CodingTrackerWebContext>(options =>
     {
-        options.UseNpgsql(builder.Configuration.GetConnectionString("LocalPostgreSQL"));
+        options.UseNpgsql(builder.Configuration.GetConnectionString("CodingTracker"));
     });
 }
 else
