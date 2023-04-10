@@ -11,6 +11,13 @@ body {
   margin-bottom: 60px;
 }
 
+#title:active, #manage:active {
+    border: solid gray;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+
 @media (min-width: 280px) {
     html {
         font-size: 6px;
